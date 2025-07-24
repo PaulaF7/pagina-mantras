@@ -27,7 +27,7 @@
                     <p class="text-lg lg:text-xl text-gray-300 mb-8">Descubra mantras ancestrais para acalmar a mente, elevar sua vibração e transformar sua realidade. Baixe nosso guia gratuito e dê o primeiro passo na sua jornada de evolução.</p>
                     
                     <!-- O formulário agora aponta para o nosso ficheiro PHP -->
-                    <form action="send-to-brevo.php" method="POST" class="w-full max-w-md mx-auto md:mx-0">
+                    <form id="subscribe-form" class="w-full max-w-md mx-auto md:mx-0"></form>
                         <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg">
                             <div class="mb-4">
                                 <input type="text" name="NOME" placeholder="Seu nome" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400 transition" required>
@@ -48,6 +48,58 @@
             </div>
         </div>
     </div>
+<script>
+        // Encontra o nosso formulário pelo ID que lhe demos.
+        const form = document.getElementById('subscribe-form');
 
+        // Fica à espera que o utilizador clique no botão de "submit".
+        form.addEventListener('submit', async (event) => {
+            // 1. Impede o formulário de tentar recarregar a página (comportamento padrão).
+            event.preventDefault();
+
+            // 2. Pega nos dados que o utilizador escreveu (nome e email).
+            const formData = new FormData(form);
+            const nome = formData.get('NOME');
+            const email = formData.get('email');
+            
+            // Pega no botão para podermos dar feedback ao utilizador
+            const button = form.querySelector('button');
+            const originalButtonText = button.innerHTML;
+            button.innerHTML = 'A ENVIAR...';
+            button.disabled = true;
+
+            // 3. Envia os dados para o nosso assistente secreto no Netlify.
+            try {
+                const response = await fetch('/.netlify/functions/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ nome, email }),
+                });
+
+                // 4. Recebe a resposta do nosso assistente.
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Se tudo correu bem, o assistente diz-nos para onde ir.
+                    // E nós redirecionamos o utilizador para a página de oferta!
+                    window.location.href = data.redirect;
+                } else {
+                    // Se algo deu errado (ex: email inválido), mostramos um alerta.
+                    alert(data.message || 'Ocorreu um erro. Por favor, tente novamente.');
+                    button.innerHTML = originalButtonText;
+                    button.disabled = false;
+                }
+            } catch (error) {
+                console.error('Erro ao submeter o formulário:', error);
+                alert('Não foi possível ligar ao servidor. Verifique a sua conexão.');
+                button.innerHTML = originalButtonText;
+                button.disabled = false;
+            }
+        });
+    </script>
+    </body>
+</html>
 </body>
 </html>
