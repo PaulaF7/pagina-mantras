@@ -1,5 +1,5 @@
 // Importamos uma ferramenta para nos ajudar a falar com o Brevo.
-const fetch = require('node-fetch');
+
 
 // Esta é a nossa função mágica, o nosso assistente.
 // Ela é ativada sempre que alguém preenche o formulário.
