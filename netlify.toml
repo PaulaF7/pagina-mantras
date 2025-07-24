@@ -1,0 +1,20 @@
+[build]
+  # Esta linha diz ao Netlify para não tentar construir nada de especial,
+  # apenas para publicar os nossos ficheiros HTML e outros.
+  command = "echo 'Nenhum comando de build necessário'"
+  # Esta é a pasta que o Netlify vai colocar online.
+  # Vamos colocar o nosso index.html aqui.
+  publish = "public"
+
+[functions]
+  # Esta linha diz ao Netlify onde encontrar as nossas "instruções secretas".
+  directory = "netlify/functions"
+
+[[redirects]]
+  # Esta é a regra mágica do nosso formulário.
+  # Quando alguém submete o formulário na página inicial...
+  from = "/subscribe"
+  # ...nós ativamos a nossa função secreta 'subscribe.js' nos bastidores.
+  to = "/.netlify/functions/subscribe"
+  # Código 200 significa que tudo correu bem, mas o utilizador não vê esta página.
+  status = 200
