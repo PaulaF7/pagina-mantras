@@ -54,8 +54,15 @@
 
         // Fica à espera que o utilizador clique no botão de "submit".
         form.addEventListener('submit', async (event) => {
-            // 1. Impede o formulário de tentar recarregar a página (comportamento padrão).
-            event.preventDefault();
+    // =================================================================
+    // ✅ A NOSSA "LUZ DE TESTE" - Adicione esta linha exatamente aqui
+    console.log('O formulário foi submetido! O script está a ser executado!');
+    // =================================================================
+
+    // 1. Impede o formulário de tentar recarregar a página (comportamento padrão).
+    event.preventDefault();
+
+    // ...o resto do código continua exatamente igual...
 
             // 2. Pega nos dados que o utilizador escreveu (nome e email).
             const formData = new FormData(form);
