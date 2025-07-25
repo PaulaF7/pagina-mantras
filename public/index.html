@@ -9,13 +9,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Lato', sans-serif; }
+        body { font-family: 'Lato', sans-serif; scroll-behavior: smooth; }
         h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white antialiased">
 
-    <div class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900">
+    <div id="capture-section" class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900">
         <div class="w-full max-w-6xl mx-auto">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold font-heading tracking-wider">Evolu<span class="text-amber-400">•</span>ir</h2>
@@ -26,8 +32,7 @@
                     <h1 class="text-4xl lg:text-5xl font-bold mb-4 leading-tight font-heading">Desperte o Poder que Existe em Você.</h1>
                     <p class="text-lg lg:text-xl text-gray-300 mb-8">Descubra mantras ancestrais para acalmar a mente, elevar sua vibração e transformar sua realidade. Baixe nosso guia gratuito e dê o primeiro passo na sua jornada de evolução.</p>
                     
-                    <!-- O formulário agora aponta para o nosso ficheiro PHP -->
-                    <form id="subscribe-form" class="w-full max-w-md mx-auto md:mx-0"></form>
+                    <form id="subscribe-form" class="w-full max-w-md mx-auto md:mx-0">
                         <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg">
                             <div class="mb-4">
                                 <input type="text" name="NOME" placeholder="Seu nome" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400 transition" required>
@@ -48,52 +53,79 @@
             </div>
         </div>
     </div>
-<script>
-        // Encontra o nosso formulário pelo ID que lhe demos.
+
+    <div id="offer-section" class="min-h-screen flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900 hidden">
+        <div class="text-center max-w-3xl mx-auto">
+            
+            <div class="mb-8">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2 class="text-3xl font-bold mt-4 font-heading">Tudo certo! Seu guia foi enviado.</h2>
+                <p class="text-gray-400 mt-2">Verifique sua caixa de entrada (e a pasta de spam, por via das dúvidas).</p>
+            </div>
+
+            <div class="bg-gray-800 bg-opacity-50 rounded-lg shadow-xl p-8 md:p-12">
+                <h1 class="text-3xl md:text-4xl font-bold text-amber-400 mb-4 font-heading">Você adquiriu o CONHECIMENTO. <br> Que tal agora colocar em PRÁTICA?</h1>
+                <p class="text-lg text-gray-300 mb-6">
+                    Seu eBook foi o primeiro passo. Agora você tem acesso ao aplicativo <span class="font-bold text-white">Clube dos Mantras</span>, uma experiência exclusiva para quem quer viver de verdade o <span class="font-bold text-white">poder dos mantras</span>. Áudios profissionais, meditações guiadas e práticas diárias em um só lugar.
+                </p>
+                 O acesso é por <span class="font-bold text-white">tempo limitado</span>. Depois, será encerrado. Se você sente o chamado, aproveite agora. <span class="font-bold">A transformação começa quando você decide fazer parte.</span>
+                
+                <div class="my-8">
+                    <img src="https://i.postimg.cc/qqhpjwzw/Mockup-aplicativo.png" alt="Mockup do aplicativo Clube dos Mantras" class="rounded-lg shadow-lg mx-auto w-full max-w-md">
+                </div>
+
+                <div class="border-2 border-amber-400 border-dashed rounded-lg p-6 mb-8">
+                     <h3 class="text-2xl font-bold mb-2">Sua Oferta Especial de Boas-Vindas</h3>
+                     <p class="text-2xl font-bold text-amber-400 mt-2">Comece agora com 7 DIAS DE TESTE TOTALMENTE GRÁTIS!</p>
+                     <p class="text-xl">Tenha acesso ilimitado ao App Clube dos Mantras, com todos os recursos liberados, por apenas <span class="font-bold text-white">R$19,90 por mês</span> após o período de teste.</p>
+                </div>
+
+                <a href="#link-para-checkout-do-app" class="inline-block bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-xl py-4 px-10 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 pulse-animation">
+                    SIM, QUERO MEUS 7 DIAS GRÁTIS!
+                </a>
+                <p class="mt-4">
+                    <a href="#link-alternativo" class="text-gray-500 hover:text-gray-400 transition text-sm">Não, obrigado. Quero apenas o ebook por enquanto.</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
         const form = document.getElementById('subscribe-form');
+        const captureSection = document.getElementById('capture-section');
+        const offerSection = document.getElementById('offer-section');
 
-        // Fica à espera que o utilizador clique no botão de "submit".
         form.addEventListener('submit', async (event) => {
-    // =================================================================
-    // ✅ A NOSSA "LUZ DE TESTE" - Adicione esta linha exatamente aqui
-    console.log('O formulário foi submetido! O script está a ser executado!');
-    // =================================================================
+            console.log('O formulário foi submetido! O script está a ser executado!');
+            event.preventDefault();
 
-    // 1. Impede o formulário de tentar recarregar a página (comportamento padrão).
-    event.preventDefault();
-
-    // ...o resto do código continua exatamente igual...
-
-            // 2. Pega nos dados que o utilizador escreveu (nome e email).
             const formData = new FormData(form);
             const nome = formData.get('NOME');
             const email = formData.get('email');
             
-            // Pega no botão para podermos dar feedback ao utilizador
             const button = form.querySelector('button');
             const originalButtonText = button.innerHTML;
             button.innerHTML = 'A ENVIAR...';
             button.disabled = true;
 
-            // 3. Envia os dados para o nosso assistente secreto no Netlify.
             try {
                 const response = await fetch('/.netlify/functions/subscribe', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nome, email }),
                 });
 
-                // 4. Recebe a resposta do nosso assistente.
-                const data = await response.json();
-
                 if (response.ok) {
-                    // Se tudo correu bem, o assistente diz-nos para onde ir.
-                    // E nós redirecionamos o utilizador para a página de oferta!
-                    window.location.href = data.redirect;
+                    // SUCESSO! AGORA VAMOS TROCAR AS SEÇÕES
+                    captureSection.classList.add('hidden'); // Esconde a seção de captura
+                    offerSection.classList.remove('hidden'); // Mostra a seção de oferta
+                    offerSection.classList.add('flex'); // Adiciona flex para centralizar
+                    window.scrollTo(0, 0); // Rola a página para o topo
                 } else {
-                    // Se algo deu errado (ex: email inválido), mostramos um alerta.
+                    const data = await response.json();
                     alert(data.message || 'Ocorreu um erro. Por favor, tente novamente.');
                     button.innerHTML = originalButtonText;
                     button.disabled = false;
@@ -106,7 +138,6 @@
             }
         });
     </script>
-    </body>
-</html>
+
 </body>
 </html>
