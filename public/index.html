@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div id="offer-section" class="min-h-screen flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900 hidden">
+    <div id="offer-section" class="min-h-screen hidden flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900">
         <div class="text-center max-w-3xl mx-auto">
             
             <div class="mb-8">
@@ -86,9 +86,16 @@
                     SIM, QUERO MEUS 7 DIAS GRÁTIS!
                 </a>
                 <p class="mt-4">
-                    <a href="#link-alternativo" class="text-gray-500 hover:text-gray-400 transition text-sm">Não, obrigado. Quero apenas o ebook por enquanto.</a>
+                    <a href="#" id="no-thanks-link" class="text-gray-500 hover:text-gray-400 transition text-sm">Não, obrigado. Quero apenas o ebook por enquanto.</a>
                 </p>
             </div>
+        </div>
+    </div>
+
+    <div id="thank-you-section" class="min-h-screen hidden flex-col items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-teal-900">
+        <div class="text-center">
+            <h2 class="text-4xl font-bold font-heading text-amber-400">Obrigado!</h2>
+            <p class="text-lg text-gray-300 mt-4">O seu guia já está a caminho do seu email. Boas leituras!</p>
         </div>
     </div>
 
@@ -97,9 +104,12 @@
         const form = document.getElementById('subscribe-form');
         const captureSection = document.getElementById('capture-section');
         const offerSection = document.getElementById('offer-section');
+        // Identificamos os novos elementos
+        const thankYouSection = document.getElementById('thank-you-section');
+        const noThanksLink = document.getElementById('no-thanks-link');
 
+        // Evento para o formulário principal
         form.addEventListener('submit', async (event) => {
-            console.log('O formulário foi submetido! O script está a ser executado!');
             event.preventDefault();
 
             const formData = new FormData(form);
@@ -119,11 +129,10 @@
                 });
 
                 if (response.ok) {
-                    // SUCESSO! AGORA VAMOS TROCAR AS SEÇÕES
-                    captureSection.classList.add('hidden'); // Esconde a seção de captura
-                    offerSection.classList.remove('hidden'); // Mostra a seção de oferta
-                    offerSection.classList.add('flex'); // Adiciona flex para centralizar
-                    window.scrollTo(0, 0); // Rola a página para o topo
+                    captureSection.classList.add('hidden');
+                    offerSection.classList.remove('hidden');
+                    offerSection.classList.add('flex');
+                    window.scrollTo(0, 0);
                 } else {
                     const data = await response.json();
                     alert(data.message || 'Ocorreu um erro. Por favor, tente novamente.');
@@ -136,6 +145,15 @@
                 button.innerHTML = originalButtonText;
                 button.disabled = false;
             }
+        });
+
+        // Novo evento para o link "Não, obrigado"
+        noThanksLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Impede o link de tentar navegar
+            offerSection.classList.add('hidden'); // Esconde a seção de oferta
+            thankYouSection.classList.remove('hidden'); // Mostra a seção de agradecimento
+            thankYouSection.classList.add('flex');
+            window.scrollTo(0, 0); // Rola a página para o topo
         });
     </script>
 
